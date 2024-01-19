@@ -20,6 +20,7 @@ from .util import getenv_or_raise
 HTTP_PORT = os.getenv("HTTP_PORT", "8545")
 PUBLIC_IP = os.getenv("PUBLIC_IP", "127.0.0.1")
 PLAYER_VALUE = int(os.getenv("PLAYER_VALUE", "0"))
+RPC_KILL_TIMEOUT = int(os.getenv("RPC_KILL_TIMEOUT", 60 * 60))
 
 FLAG = getenv_or_raise("FLAG")
 
@@ -185,7 +186,7 @@ def new_launch_instance_action(
         port_for_display = "" if HTTP_PORT == "80" else ":" + HTTP_PORT
         print()
         print(f"your private blockchain has been deployed!")
-        print(f"it will automatically terminate in 1 hour")
+        print(f"it will automatically terminate in {RPC_KILL_TIMEOUT/60} minutes")
         print(f"here's some useful information")
         print()
         print(f"uuid:           {uuid}")
