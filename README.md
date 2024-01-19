@@ -1,6 +1,6 @@
 # GreyCTF Blockchain Infrastructure
 
-Forked from https://github.com/Social-Engineering-Experts/SEETF-2023-Public/blob/main/challs/seetf-evm-infra.
+Forked from https://github.com/uclaacm/lactf-archive/tree/main/2023/pwn/eth-challenge-base
 
 Makes use of [anvil](https://book.getfoundry.sh/reference/anvil/) from the foundry toolchain to create blockchain nodes.
 
