@@ -267,7 +267,7 @@ def new_get_flag_action(
             print("are you *really* sure you solved it?")
             return 1
 
-        print("\nCongratulations! You have solve it! Here's the flag: ")
+        print("\nCongratulations! You have solved it! Here's the flag: ")
         print(FLAG)
         return 0
 
