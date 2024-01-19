@@ -196,8 +196,26 @@ def kill():
         "message": "Instance killed",
     }
 
-
-ALLOWED_NAMESPACES = ["web3", "eth", "net"]
+ALLOWED_METHODS = [
+    "eth_blockNumber",
+    "eth_call",
+    "eth_chainId",
+    "eth_estimateGas",
+    "eth_feeHistory",
+    "eth_gasPrice",
+    "eth_getBalance",
+    "eth_getBlockByHash",
+    "eth_getBlockByNumber",
+    "eth_getCode",
+    "eth_getStorageAt",
+    "eth_getTransactionByHash",
+    "eth_getTransactionCount",
+    "eth_getTransactionReceipt",
+    "eth_sendRawTransaction",
+    "net_version",
+    "rpc_modules",
+    "web3_clientVersion"
+]
 
 
 @app.route("/<string:uuid>", methods=["POST"])
@@ -232,11 +250,8 @@ def proxy(uuid):
             },
         }
 
-    ok = (
-        any(body["method"].startswith(namespace)
-            for namespace in ALLOWED_NAMESPACES)
-        and body["method"] != "eth_sendUnsignedTransaction"
-    )
+    ok = body["method"] in ALLOWED_METHODS
+
     if not ok and not is_request_authenticated(request):
         return {
             "jsonrpc": "2.0",
