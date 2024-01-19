@@ -6,6 +6,10 @@ Makes use of [anvil](https://book.getfoundry.sh/reference/anvil/) from the found
 
 ## Configuration Reference
 
+The docker image is configurable with the use of environment variables. (i.e. `ENV FLAG="grey{poopoo_hehe}"`). 
+
+Here is the list of configuration available for the docker image
+
 | Name                      | Default                       | Description                                                                       |
 | ------------------------- | ----------------------------- | --------------------------------------------------------------------------------- |
 | `FLAG`                    | `grey{TEST_FLAG}`             | Challenge flag to be given on solving the challenge                               |
