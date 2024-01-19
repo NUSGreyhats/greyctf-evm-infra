@@ -6,7 +6,7 @@ Makes use of [anvil](https://book.getfoundry.sh/reference/anvil/) from the found
 
 ## Configuration Reference
 
-The docker image is configurable with the use of environment variables. (i.e. `ENV FLAG="grey{poopoo_hehe}"`). 
+The docker image is configurable with the use of environment variables.
 
 Here is the list of configuration available for the docker image
 
@@ -38,8 +38,13 @@ Using the built docker image, we can easily deploy on-demand blockchain challeng
 ```dockerfile
 FROM grey.ctf/evm-infra
 
+# configuration
+ENV FLAG="grey{i_am_the_flag!}"
+
+# contracts
 COPY contracts/ /tmp/contracts/
 
+# additional configuration to build contract 
 # uncomment if necessary
 #
 # COPY ./foundry.toml /tmp/foundry.toml
