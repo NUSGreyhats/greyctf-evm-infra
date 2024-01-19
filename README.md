@@ -8,7 +8,6 @@ forked from https://github.com/Social-Engineering-Experts/SEETF-2023-Public/blob
 | ------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | `FLAG`         | `grey{TEST_FLAG}`                | Challenge flag to be given on solving the challenge |
 | `PORT`         | `5000`               |   Port number to bind to |
-| 
 
 
 ## Setting up the Image
@@ -39,7 +38,7 @@ This contract will be deployed on creation of the ethereum node, and will be res
 ## TODO
 
 - [ ] **get the image build to work**
-- [ ] add an config to get a proof of work 
+- [ ] add a config to get a proof of work 
 - [ ] make EVM node timeout configurable
 - [ ] make SOLC version configurable
 - [ ] update requirements.txt
