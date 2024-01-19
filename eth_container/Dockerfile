@@ -53,7 +53,6 @@ RUN true \
 COPY ./remappings.txt /tmp/remappings.txt
 COPY ./foundry.toml /tmp/foundry.toml
 
-ARG SHARED_SECRET
 ARG FLAG="grey{TEST_FLAG}"
 ARG HTTP_HOST="127.0.0.1"
 ARG HTTP_PORT="8545"
@@ -65,7 +64,6 @@ ARG PLAYER_VALUE="10"
 ENV PORT=${PORT}
 ENV PUBLIC_IP=${HTTP_HOST}
 ENV HTTP_PORT=${HTTP_PORT}
-ENV SHARED_SECRET=${SHARED_SECRET}
 ENV FLAG=${FLAG}
 ENV CONTRACT_PATH="/home/ctf/compiled/Setup.sol/Setup.json"
 ENV CONTRACT_DEPLOY_ARGS=${CONTRACT_DEPLOY_ARGS}
