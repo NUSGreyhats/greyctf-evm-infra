@@ -1,0 +1,7 @@
+version: "3.3"
+services:
+  sample:
+    build: .
+    ports:
+      - 5000:5000
+      - 8545:8545

@@ -35,6 +35,11 @@ Using the built docker image, we can easily deploy on-demand blockchain challeng
 FROM grey.ctf/evm-infra
 
 COPY contracts/ /tmp/contracts/
+
+# uncomment if necessary
+#
+# COPY ./foundry.toml /tmp/foundry.toml
+# COPY ./remappings.txt /tmp/remappings.txt
 ```
 
 The `contracts/` folder **MUST** contain a file `Setup.sol`, with a solidity contract called "Setup" that has the `isSolved()` function.
@@ -49,7 +54,7 @@ This contract will be deployed on creation of the ethereum node, and will be res
 - [X] **get the image build to work**
 - [ ] add a config to ask for a redpwn proof of work (prevent DoS but idk if necessary)
 - [X] make EVM node timeout configurable (default now is 1 hour)
-- [ ] make SOLC version configurable
+- [X] make SOLC version configurable
 - [ ] update requirements.txt
 - [ ] add github workflows to deploy docker image
 - [ ] add github workflows to test that docker image works

@@ -1,5 +1,5 @@
 #!/bin/bash
 
 # compile contracts
-/root/.foundry/bin/forge build -C /tmp/contracts --out /home/ctf/compiled
+/root/.foundry/bin/forge build -C /tmp/contracts --root /tmp --out /home/ctf/compiled
 rm -rf /tmp/contracts
