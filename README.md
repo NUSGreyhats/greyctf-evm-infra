@@ -8,6 +8,7 @@ forked from https://github.com/Social-Engineering-Experts/SEETF-2023-Public/blob
 | ------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | `FLAG`         | `grey{TEST_FLAG}`                | Challenge flag to be given on solving the challenge |
 | `PORT`         | `5000`               |   Port number to bind to |
+| 
 
 
 ## Setting up the Image
@@ -24,7 +25,8 @@ Using the built docker image, we can easily deploy on-demand blockchain challeng
 # this doesn't work yet, still W.I.P, but here's a vision of the end product
 FROM XXX
 
-COPY contracts/ /app/contracts/
+# all contracts to be compiled MUST be copied into "/tmp/contracts"
+COPY contracts/ /tmp/contracts/
 ```
 
 The `contracts/` folder **MUST** contain a solidity contract called "Setup" with the `isSolved()` function.
@@ -40,3 +42,6 @@ This contract will be deployed on creation of the ethereum node, and will be res
 - [ ] add an config to get a proof of work 
 - [ ] make EVM node timeout configurable
 - [ ] make SOLC version configurable
+- [ ] update requirements.txt
+- [ ] add github workflows to deploy docker image
+- [ ] add github workflows to test that docker image works
