@@ -4,7 +4,6 @@ FROM python:3.9.16
 # Install the necessary dependencies
 RUN true \
     && mkdir /var/log/ctf /startup \
-    && echo "deb http://ftp.debian.org/debian sid main" >> /etc/apt/sources.list \
     && apt update \
     && apt install -y libc6 libc6-dev xinetd tini \
     && rm -rf /var/cache/apt/archives \
