@@ -4,7 +4,7 @@ pragma solidity 0.8.15;
 import { IERC20 } from "./lib/IERC20.sol";
 import { ERC20 } from "./lib/ERC20.sol";
 import { FixedPointMathLib } from "./lib/FixedPointMathLib.sol";
-import { ISimpleCallbacks } from "./ISimpleCallbacks.sol";
+import { ISimpleCallbacks } from "./interfaces/ISimpleCallbacks.sol";
 import { SimpleVault } from "./SimpleVault.sol";
 
 /// @title SimpleAMM

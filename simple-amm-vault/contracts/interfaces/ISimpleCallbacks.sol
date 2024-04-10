@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.15;
 
-/// @title IVaultCallbacks
+/// @title ISimpleCallbacks 
 /// @notice Interface for callbacks.
 interface ISimpleCallbacks {
     /**
