@@ -14,6 +14,7 @@ Here is the list of configuration available for the docker image
 | ------------------------- | ----------------------------- | --------------------------------------------------------------------------------- |
 | `FLAG`                    | `grey{TEST_FLAG}`             | Challenge flag to be given on solving the challenge                               |
 | `PORT`                    | `5000`                        | Port number to bind to (for the challenge deployer service)                       |
+| `HTTP_HOST`               | `127.0.0.1`                   | Hostname/ip address of server to be displayed                                     |
 | `HTTP_PORT`               | `8545`                        | Port number to bind to (to host the web3 interface)                               |
 | `PER_SOURCE`              | `4`                           | Maximum concurrent connections for each IP                                        |
 | `CPS_RATE`                | `200`                         | Maximum connections per second                                                    |
