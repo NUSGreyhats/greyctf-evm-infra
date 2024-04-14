@@ -20,7 +20,7 @@ from .util import getenv_or_raise
 HTTP_PORT = os.getenv("HTTP_PORT", "8545")
 PUBLIC_IP = os.getenv("PUBLIC_IP", "127.0.0.1")
 PLAYER_VALUE = int(os.getenv("PLAYER_VALUE", "0"))
-RPC_KILL_TIMEOUT = int(os.getenv("RPC_KILL_TIMEOUT", 60 * 60))
+RPC_KILL_TIMEOUT = int(os.getenv("RPC_KILL_TIMEOUT", 10 * 60))
 
 FLAG = getenv_or_raise("FLAG")
 

@@ -13,17 +13,18 @@ Here is the list of configuration available for the docker image
 | Name                      | Default                       | Description                                                                       |
 | ------------------------- | ----------------------------- | --------------------------------------------------------------------------------- |
 | `FLAG`                    | `grey{TEST_FLAG}`             | Challenge flag to be given on solving the challenge                               |
+| `PUBLIC_IP`               | `127.0.0.1`                   | Public IP/Hostname to display in RPC\_URL                                         |
 | `PORT`                    | `5000`                        | Port number to bind to (for the challenge deployer service)                       |
 | `HTTP_PORT`               | `8545`                        | Port number to bind to (to host the web3 interface)                               |
-| `PER_SOURCE`              | `4`                           | Maximum concurrent connections for each IP                                        |
+| `PER_SOURCE`              | `1`                           | Maximum concurrent connections for each IP                                        |
 | `CPS_RATE`                | `200`                         | Maximum connections per second                                                    |
-| `CPS_DELAY`               | `5`                           | Service timeout when CPS_RATE has been hit                                        |
+| `CPS_DELAY`               | `5`                           | Service timeout when CPS\_RATE has been hit                                       |
 | `RLIMIT_CPU`              | `5`                           | Maximum number of CPU seconds that the service may use                            |
 | `CONTRACT_DEPLOY_ARGS`    | `""`                          | Arguments that will be used in deploying the Setup contract                       |
 | `CONTRACT_DEPLOY_VALUE`   | `0`                           | Amount of Ether to deploy the Setup contract with                                 |
 | `PLAYER_VALUE`            | `10`                          | Amount of Ether to grant to the player                                            |
-| `ETH_RPC_URL`             | `https://eth.llamarpc.com`    | Ethereum chain that will be forked                                                |
-| `RPC_KILL_TIMEOUT`        | `3600`                        | Amount of seconds until Anvil node is terminated                                  |
+| `ETH_RPC_URL`             | `https://eth-pokt.nodies.app` | Ethereum chain that will be forked                                                |
+| `RPC_KILL_TIMEOUT`        | `600`                         | Amount of seconds until Anvil node is terminated                                  |
 
 ## Setting up the Image
 

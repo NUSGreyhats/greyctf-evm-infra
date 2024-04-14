@@ -20,8 +20,8 @@ app = Flask(__name__)
 CORS(app)
 
 HTTP_PORT = os.getenv("HTTP_PORT", "8545")
-ETH_RPC_URL = os.getenv("ETH_RPC_URL", "https://eth.llamarpc.com") # chosen from https://chainlist.org/chain/1
-RPC_KILL_TIMEOUT = int(os.getenv("RPC_KILL_TIMEOUT", 60 * 60))
+ETH_RPC_URL = os.getenv("ETH_RPC_URL", "https://eth-pokt.nodies.app") # chosen from https://chainlist.org/chain/1
+RPC_KILL_TIMEOUT = int(os.getenv("RPC_KILL_TIMEOUT", 10 * 60))
 
 # ANSI escape sequences for text color
 INFO_COLOR = '\033[94m'  # Blue
@@ -96,6 +96,7 @@ def launch_node() -> Dict:
             ETH_RPC_URL,
             "--chain-id",
             "1337",
+            "--no-rate-limit",
             "--block-base-fee-per-gas",
             "0",
             "--gas-limit",

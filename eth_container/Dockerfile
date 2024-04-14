@@ -18,6 +18,8 @@ COPY ./99-start-xinetd /startup
 COPY ./handler.sh /home/ctf/handler.sh
 COPY ./entrypoint.sh /entrypoint.sh
 
+RUN echo "blocked by xinetd -- do you already have an instance running?" > /etc/banner_fail
+
 # Set the default command to run
 ENTRYPOINT ["tini", "-g", "--"]
 CMD ["/entrypoint.sh"]
