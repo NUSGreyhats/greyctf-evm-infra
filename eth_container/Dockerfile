@@ -11,14 +11,11 @@ RUN true \
     && chown -R ctf:ctf /tmp \
     && true
 
+RUN mkdir -p /var/log/ctf
+
 # Copy the startup scripts to the correct location
 COPY ./00-compile-smart-contract /startup
-COPY ./01-create-xinetd-service /startup
-COPY ./99-start-xinetd /startup
-COPY ./handler.sh /home/ctf/handler.sh
 COPY ./entrypoint.sh /entrypoint.sh
-
-RUN echo "blocked by xinetd -- do you already have an instance running?" > /etc/banner_fail
 
 # Set the default command to run
 ENTRYPOINT ["tini", "-g", "--"]

@@ -8,4 +8,6 @@ for f in /startup/*; do
     bash "$f"
 done
 
-tail -f /var/log/ctf/*
+# tail -f /var/log/ctf/*
+cd /home/ctf
+python3 -u -m eth_sandbox.deploy

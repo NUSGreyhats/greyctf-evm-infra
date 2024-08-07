@@ -109,7 +109,7 @@ def setup(contract_path: str, value: int = 0, args_str: str = '') -> Callable[[W
 def new_launch_instance_action(
     do_deploy: Callable[[Web3, str], str],
 ):
-    def action() -> int:
+    def action() -> str:
         data = requests.post(
             f"http://127.0.0.1:{HTTP_PORT}/new",
             headers={
@@ -120,7 +120,7 @@ def new_launch_instance_action(
 
         if data["ok"] == False:
             print(data["message"])
-            return 1
+            return "Error!"
 
         uuid = data["uuid"]
         mnemonic = data["mnemonic"]
@@ -184,31 +184,31 @@ def new_launch_instance_action(
             )
 
         port_for_display = "" if HTTP_PORT == "80" else ":" + HTTP_PORT
-        print()
-        print(f"your private blockchain has been deployed!")
-        print(f"it will automatically terminate in {RPC_KILL_TIMEOUT/60} minutes")
-        print(f"here's some useful information")
-        print()
-        print(f"uuid:           {uuid}")
-        print(f"rpc endpoint:   http://{PUBLIC_IP}{port_for_display}/{uuid}")
-        print(f"private key:    {player_acct.privateKey.hex()}")
-        print(f"public key:    {player_acct.address}")
-        print(f"setup contract: {setup_addr}")
-        return 0
+        result =  "\n"
+        result += f"\nyour private blockchain has been deployed!"
+        result += f"\nit will automatically terminate in {RPC_KILL_TIMEOUT/60} minutes"
+        result += f"\nhere's some useful information"
+        result += f"\n\nuuid:           {uuid}"
+        result += f"\nrpc endpoint:   http://{PUBLIC_IP}{port_for_display}/{uuid}"
+        result += f"\nprivate key:    {player_acct.privateKey.hex()}"
+        result += f"\npublic key:    {player_acct.address}"
+        result += f"\nsetup contract: {setup_addr}\n"
+        return result
 
     return Action(name="launch new instance", handler=action)
 
 
 def new_kill_instance_action():
-    def action() -> int:
+    def action(uuid) -> str:
         try:
-            uuid = check_uuid(input("uuid please: "))
+            uuid = check_uuid(uuid)
             if not uuid:
-                print("invalid uuid!")
-                return 1
+                return "invalid uuid!"
         except Exception as e:
-            print(f"Error with UUID: {e}")
-            return 1
+            return f"Error with UUID: {e}"
+
+        if os.path.exists(f"/tmp/{uuid}"):
+            os.unlink(f"/tmp/{uuid}")
 
         data = requests.post(
             f"http://127.0.0.1:{HTTP_PORT}/kill",
@@ -223,8 +223,7 @@ def new_kill_instance_action():
             ),
         ).json()
 
-        print(data["message"])
-        return 1
+        return data["message"]
 
     return Action(name="kill instance", handler=action)
 
@@ -244,33 +243,27 @@ def is_solved_checker(web3: Web3, from_addr: str, to_addr: str) -> bool:
 def new_get_flag_action(
     checker: Callable[[Web3, str], bool] = is_solved_checker,
 ):
-    def action() -> int:
+    def action(uuid) -> int:
         try:
-            uuid = check_uuid(input("uuid please: "))
+            uuid = check_uuid(uuid)
             if not uuid:
-                print("invalid uuid!")
-                return 1
+                return "invalid uuid!"
         except Exception as e:
-            print(f"Error with UUID: {e}")
-            return 1
+            return (f"Error with UUID: {e}")
 
         try:
             with open(f"/tmp/{uuid}", "r") as f:
                 data = json.loads(f.read())
         except:
-            print("bad uuid")
-            return 1
+            return "there is no running instance with this uuid"
 
         web3 = Web3(Web3.HTTPProvider(
             f"http://127.0.0.1:{HTTP_PORT}/{data['uuid']}"))
 
         if not checker(web3, data['public_key'], data['address']):
-            print("are you *really* sure you solved it?")
-            return 1
+            return "are you *really* sure you solved it?"
 
-        print("\nCongratulations! You have solved it! Here's the flag: ")
-        print(FLAG)
-        return 0
+        return "\nCongratulations! You have solved it! Here's the flag: " + FLAG
 
     return Action(name="acquire flag", handler=action)
 
