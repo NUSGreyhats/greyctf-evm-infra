@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Instance Manager</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<div class="main-container">
+		<div class="container">
+			<h1 id="header">Instance Manager</h1>
+
+			<input type="text" id="uuid" placeholder="Enter UUID to kill instance or get flag!">
+			<button id="launch-btn" style="background-color: #f69c9e;">Launch Instance</button>
+			<button id="kill-btn" style="background-color: #aad2ec;">Kill Instance</button>
+			<button id="flag-btn" style="background-color: #97e3c2;">Get Flag</button>
+
+			<div id="buffering-icon"><br>Loading...</div>
+			<div id="result"></div>
+		</div>
+
+	</div>
+
+
+	<script>
+		$(document).ready(function() {
+			$.get('/name', function(data) {
+				$('#header').text(data);
+			});
+		});
+
+		$(document).ready(function() {
+			$('#launch-btn').click(function() {
+				$('#buffering-icon').show();
+				$.post('/launch', function(data) {
+					$('#result').html(data.result.replace(/\n/g, '<br>'));
+					$('#buffering-icon').hide();
+				});
+			});
+
+			$('#kill-btn').click(function() {
+				$('#buffering-icon').show();
+				var instance_id = $('#uuid').val();
+				$.post('/kill', { instance_id: instance_id }, function(data) {
+					$('#result').html(data.result.replace(/\n/g, '<br>'));
+					$('#buffering-icon').hide();
+				});
+			});
+
+			$('#flag-btn').click(function() {
+				$('#buffering-icon').show();
+				var instance_id = $('#uuid').val();
+				$.post('/get_flag', { instance_id: instance_id }, function(data) {
+					$('#result').html(data.result.replace(/\n/g, '<br>'));
+					$('#buffering-icon').hide();
+				});
+			});
+		});
+	</script>
+</body>
+
