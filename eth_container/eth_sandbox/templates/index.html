@@ -60,7 +60,7 @@
 				<h2>CTF Challenges</h2>
 				<div id="challenge-1">
 					<h3>Challenge 1</h3>
-					<p>Challenge 1 description goes here.</p>
+					<p>Try interacting with this smart contract and withdraw all the funds from this contract!</p>
 					<input type="text" id="flag-input-1" placeholder="Enter flag for Challenge 1">
 					<button id="submit-flag-1">Submit Flag</button>
 					<div id="flag-result-1"></div>
@@ -68,7 +68,8 @@
 
 				<div id="challenge-2">
 					<h3>Challenge 2</h3>
-					<p>Challenge 2 description goes here.</p>
+					<p>Sometimes we will need to deploy our own contracts to do certain things!<p>
+					<p>Let's learn to write a fallback function :)</p>
 					<input type="text" id="flag-input-2" placeholder="Enter flag for Challenge 2">
 					<button id="submit-flag-2">Submit Flag</button>
 					<div id="flag-result-2"></div>
@@ -76,7 +77,7 @@
 
 				<div id="challenge-3">
 					<h3>Challenge 3</h3>
-					<p>Challenge 3 description goes here.</p>
+					<p>Let's try to exploit our first vulnerable contract, this is the re-entrancy attack!</p>
 					<input type="text" id="flag-input-3" placeholder="Enter flag for Challenge 3">
 					<button id="submit-flag-3">Submit Flag</button>
 					<div id="flag-result-3"></div>
@@ -121,7 +122,7 @@
 
 				$('#flag-btn-2').click(function() {
 					var instance_id = $('#uuid').text();
-					$.post('/get_flag', { instance_id: instance_id, challenge_id: 1}, function(data) {
+					$.post('/get_flag', { instance_id: instance_id, challenge_id: 1 }, function(data) {
 						$('#result').html(data.result.replace(/\n/g, '<br>'));
 					});
 				});
@@ -134,7 +135,7 @@
 				});
 
 				$('#submit-flag-1').click(function() {
-					var flag = $('#flag-input-1').text();
+					var flag = $('#flag-input-1').val();
 					$.post('/check_flag', { challenge_id: 0, flag: flag }, function(data) {
 						$('#flag-result-1').html(data.result);
 					});

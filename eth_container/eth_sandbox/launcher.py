@@ -184,10 +184,11 @@ def new_launch_instance_action(
             )
 
         port_for_display = "" if HTTP_PORT == "80" else ":" + HTTP_PORT
+        http_protocol = "https://" if HTTP_PORT == "443" else "http://"
         # result += f"\nyour private blockchain has been deployed!"
         result = {"timeout": RPC_KILL_TIMEOUT/60,
                   "uuid": uuid,
-                  "rpc_url": f"http://{PUBLIC_IP}{port_for_display}/{uuid}",
+                  "rpc_url": f"{http_protocol}{PUBLIC_IP}{port_for_display}/{uuid}",
                   "private_key": player_acct.privateKey.hex(),
                   "setup_contract": setup_addr
                   }

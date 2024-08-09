@@ -7,7 +7,7 @@ import uuid
 app = Flask(__name__)
 
 # Mock backend functions
-instances = {}
+flags = os.getenv("FLAG").split(",")
 contract_path = getenv_or_raise("CONTRACT_PATH")
 contract_value = int(os.getenv("CONTRACT_DEPLOY_VALUE", "0"))
 contract_args = os.getenv("CONTRACT_DEPLOY_ARGS", "")
@@ -29,6 +29,15 @@ def index():
 @app.route('/name')
 def name():
     return os.getenv("CHALLENGE_NAME", "Instance Manager")
+
+@app.route('/check_flag', methods=['POST'])
+def check_flag():
+    challenge_id = int(request.form['challenge_id'])
+    flag = request.form['flag']
+    if flag == flags[challenge_id]:
+        return jsonify({'result': "flag is correct!"})
+    else:
+        return jsonify({'result': "flag is incorrect..."})
 
 @app.route('/launch', methods=['POST'])
 def launch():
