@@ -22,7 +22,7 @@ PUBLIC_IP = os.getenv("PUBLIC_IP", "127.0.0.1")
 PLAYER_VALUE = int(os.getenv("PLAYER_VALUE", "0"))
 RPC_KILL_TIMEOUT = int(os.getenv("RPC_KILL_TIMEOUT", 10 * 60))
 
-FLAG = getenv_or_raise("FLAG")
+FLAG = getenv_or_raise("FLAG").split(",")
 
 Account.enable_unaudited_hdwallet_features()
 
@@ -184,15 +184,20 @@ def new_launch_instance_action(
             )
 
         port_for_display = "" if HTTP_PORT == "80" else ":" + HTTP_PORT
-        result =  "\n"
-        result += f"\nyour private blockchain has been deployed!"
-        result += f"\nit will automatically terminate in {RPC_KILL_TIMEOUT/60} minutes"
-        result += f"\nhere's some useful information"
-        result += f"\n\nuuid:           {uuid}"
-        result += f"\nrpc endpoint:   http://{PUBLIC_IP}{port_for_display}/{uuid}"
-        result += f"\nprivate key:    {player_acct.privateKey.hex()}"
-        result += f"\npublic key:    {player_acct.address}"
-        result += f"\nsetup contract: {setup_addr}\n"
+        # result += f"\nyour private blockchain has been deployed!"
+        result = {"timeout": RPC_KILL_TIMEOUT/60,
+                  "uuid": uuid,
+                  "rpc_url": f"http://{PUBLIC_IP}{port_for_display}/{uuid}",
+                  "private_key": player_acct.privateKey.hex(),
+                  "setup_contract": setup_addr
+                  }
+        # result += f"\nit will automatically terminate in {RPC_KILL_TIMEOUT/60} minutes"
+        # result += f"\nhere's some useful information"
+        # result += f"\n\nuuid:           {uuid}"
+        # result += f"\nrpc endpoint:   http://{PUBLIC_IP}{port_for_display}/{uuid}"
+        # result += f"\nprivate key:    {player_acct.privateKey.hex()}"
+        # result += f"\npublic key:    {player_acct.address}"
+        # result += f"\nsetup contract: {setup_addr}\n"
         return result
 
     return Action(name="launch new instance", handler=action)
@@ -228,12 +233,12 @@ def new_kill_instance_action():
     return Action(name="kill instance", handler=action)
 
 
-def is_solved_checker(web3: Web3, from_addr: str, to_addr: str) -> bool:
+def is_solved_checker(web3: Web3, from_addr: str, to_addr: str, challenge_id: int) -> bool:
     result = web3.eth.call(
         {
             "from": from_addr,
             "to": to_addr,
-            "data": web3.sha3(text="isSolved()")[:4],
+            "data": web3.sha3(text=f"isSolved{challenge_id}()")[:4],
         }
     )
     return int(result.hex(), 16) == 1
@@ -241,9 +246,10 @@ def is_solved_checker(web3: Web3, from_addr: str, to_addr: str) -> bool:
 
 
 def new_get_flag_action(
-    checker: Callable[[Web3, str], bool] = is_solved_checker,
+    checker: Callable[[Web3, str, int], bool] = is_solved_checker,
 ):
-    def action(uuid) -> int:
+    def action(uuid, challenge_id="0") -> int:
+        challenge_id = int(challenge_id)
         try:
             uuid = check_uuid(uuid)
             if not uuid:
@@ -260,10 +266,10 @@ def new_get_flag_action(
         web3 = Web3(Web3.HTTPProvider(
             f"http://127.0.0.1:{HTTP_PORT}/{data['uuid']}"))
 
-        if not checker(web3, data['public_key'], data['address']):
+        if not checker(web3, data['public_key'], data['address'], challenge_id):
             return "are you *really* sure you solved it?"
 
-        return "\nCongratulations! You have solved it! Here's the flag: " + FLAG
+        return "\nCongratulations! You have solved it! Here's the flag: " + FLAG[challenge_id]
 
     return Action(name="acquire flag", handler=action)
 

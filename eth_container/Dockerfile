@@ -39,8 +39,6 @@ RUN true \
 
 COPY ./98-start-gunicorn /startup
 
-COPY ./eth_sandbox /usr/local/lib/python3.9/eth_sandbox
-
 ENV PYTHONPATH /usr/local/lib/python3.9
 
 RUN true \
@@ -50,6 +48,8 @@ RUN true \
 
 COPY ./remappings.txt /tmp/remappings.txt
 COPY ./foundry.toml /tmp/foundry.toml
+
+COPY ./eth_sandbox /usr/local/lib/python3.9/eth_sandbox
 
 ARG FLAG="grey{TEST_FLAG}"
 ARG HTTP_HOST="127.0.0.1"

@@ -19,8 +19,8 @@ def launch_instance():
 def kill_instance(instance_id):
     return new_kill_instance_action().handler(instance_id)
 
-def get_flag(instance_id):
-    return new_get_flag_action().handler(instance_id)
+def get_flag(instance_id, challenge_id):
+    return new_get_flag_action().handler(instance_id, challenge_id)
 
 @app.route('/')
 def index():
@@ -33,7 +33,7 @@ def name():
 @app.route('/launch', methods=['POST'])
 def launch():
     result = launch_instance()
-    return jsonify({'result': result})
+    return jsonify(result)
 
 @app.route('/kill', methods=['POST'])
 def kill():
@@ -44,7 +44,8 @@ def kill():
 @app.route('/get_flag', methods=['POST'])
 def flag():
     instance_id = request.form['instance_id']
-    result = get_flag(instance_id)
+    challenge_id = request.form['challenge_id']
+    result = get_flag(instance_id, challenge_id)
     return jsonify({'result': result})
 
 if __name__ == '__main__':

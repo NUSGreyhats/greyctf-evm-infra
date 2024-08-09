@@ -14,28 +14,31 @@ body {
     gap: 20px;
 }
 
-.container, .output-container {
+.left-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.container, .json-container, .ctf-container {
     max-width: 600px;
     padding: 20px;
     background-color: #1E1E1E;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
 }
 
-.container {
-    text-align: left;
-}
-
-.output-container {
-    text-align: left;
-    width: 300px;
-    background-color: #000000;
-    color: #00FF00;
-    font-family: monospace;
+.ctf-container {
+    max-width: 300px;
 }
 
 h1, h2 {
     color: #12cf4a;
+}
+
+h3 {
+    color: #97e3c2;
 }
 
 button {
@@ -67,3 +70,25 @@ input {
     display: none;
 }
 
+#json-data {
+    font-family: monospace;
+    white-space: pre-wrap;
+    color: #00FF00;
+}
+
+.key-value {
+	display: flex;
+	justify-content: left;
+	font-family: monospace;
+	align-items: center;
+}
+.key {
+	width: 100px; /* Adjust the width to align the colons */
+	text-align: right;
+	padding-right: 10px;
+	color: #12cf4a;
+}
+.value {
+	flex: 1;
+	color: #FFFFFF;
+}
