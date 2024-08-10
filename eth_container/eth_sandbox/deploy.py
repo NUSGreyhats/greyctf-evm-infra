@@ -30,6 +30,10 @@ def index():
 def name():
     return os.getenv("CHALLENGE_NAME", "Instance Manager")
 
+@app.route('/download')
+def download_contracts():
+    return send_file("./blockchain-workshop-smart-contracts.zip", as_attachment=True)
+
 @app.route('/check_flag', methods=['POST'])
 def check_flag():
     challenge_id = int(request.form['challenge_id'])

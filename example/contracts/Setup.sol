@@ -12,7 +12,7 @@ contract Setup {
 	challengeThree public challenge3;
 
 	constructor() payable {
-		challenge1 = (new challengeOne){value: 5 ether}("secretpassword");
+		challenge1 = (new challengeOne){value: 5 ether}("ilovegreyctf2024");
 		challenge2 = (new challengeTwo){value: 50 ether}();
 		challenge3 = (new challengeThree){value: 100 ether}();
 	}
