@@ -92,19 +92,10 @@ def launch_node() -> Dict:
             mnemonic,
             "--port",
             str(port),
-            "--fork-url",
-            ETH_RPC_URL,
             "--chain-id",
             "1337",
-            "--no-rate-limit",
             "--block-base-fee-per-gas",
-            "0",
-            "--gas-limit",
-            "0",
-            "--gas-price",
-            "0",
-            "--block-time",
-            "10"
+            "0"
         ],
     )
 

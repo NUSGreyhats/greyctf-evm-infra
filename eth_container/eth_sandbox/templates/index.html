@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Instance Manager</title>
 		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<link rel="icon" type="image/png" href="/favicon.png" />
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	</head>
 	<body>
@@ -19,7 +20,12 @@
 					</div>
 					<div class="key-value">
 						<div class="key" style="width: 60px;">files:</div>
-						<div id="instance-status" class="value"><a href="/download/">download</a></div>
+						<div id="instance-status" class="value"><a href="/download">download</a></div>
+					</div>
+					<br>
+					<div class="key-value">
+						<div class="key" style="width: 60px;">remix vm:</div>
+						<div id="instance-status" class="value"><a href="https://remix.ethereum.org/">link</a></div>
 					</div>
 					<br>
 
@@ -70,7 +76,7 @@
 					<div id="flag-result-1"></div>
 				</div>
 
-				<div id="challenge-2">
+				<div id="challenge-2" hidden>
 					<h3>Challenge 2</h3>
 					<p>Sometimes we will need to deploy our own contracts to do certain things!<p>
 					<p>Let's learn how to make a flashloan! :)</p>
@@ -79,7 +85,7 @@
 					<div id="flag-result-2"></div>
 				</div>
 
-				<div id="challenge-3">
+				<div id="challenge-3" hidden>
 					<h3>Challenge 3</h3>
 					<p>Let's try to exploit our first vulnerable contract, this is the re-entrancy attack!</p>
 					<input type="text" id="flag-input-3" placeholder="Enter flag for Challenge 3">
@@ -103,6 +109,22 @@
 					const btn = document.getElementById('launch-btn');
 					btn.disabled = false;
 					btn.style.backgroundColor = '#f69c9e';
+				}
+				
+				function getCookie(name) {
+					const value = `; ${document.cookie}`;
+					const parts = value.split(`; ${name}=`);
+					if (parts.length === 2) return parts.pop().split(';').shift();
+					return null;
+				}
+
+				// Then use it like:
+				if (getCookie('solved_challenge_1') === 'true') {
+					$('#challenge-2').removeAttr('hidden');
+				}
+
+				if (getCookie('solved_challenge_2') === 'true') {
+					$('#challenge-3').removeAttr('hidden');
 				}
 
 				$('#kill-btn').click(function() {
@@ -142,6 +164,10 @@
 					var flag = $('#flag-input-1').val();
 					$.post('/check_flag', { challenge_id: 0, flag: flag }, function(data) {
 						$('#flag-result-1').html(data.result);
+						if (data.result.includes('flag is correct')) {
+							document.cookie = "solved_challenge_1=true; path=/";
+							$('#challenge-2').removeAttr('hidden');
+						}
 					});
 				});
 
@@ -149,6 +175,10 @@
 					var flag = $('#flag-input-2').val();
 					$.post('/check_flag', { challenge_id: 1, flag: flag }, function(data) {
 						$('#flag-result-2').html(data.result);
+						if (data.result.includes('flag is correct!')) {
+							document.cookie = "solved_challenge_2=true; path=/";
+							$('#challenge-3').removeAttr('hidden');
+						}
 					});
 				});
 

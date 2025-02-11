@@ -49,6 +49,8 @@ RUN true \
 COPY ./remappings.txt /tmp/remappings.txt
 COPY ./foundry.toml /tmp/foundry.toml
 
+# this is for participants to download actually
+COPY ./eth_sandbox/blockchain-workshop-smart-contracts.zip /blockchain-workshop-contracts.zip
 COPY ./eth_sandbox /usr/local/lib/python3.9/eth_sandbox
 
 ARG FLAG="grey{TEST_FLAG}"
@@ -59,11 +61,11 @@ ARG CONTRACT_DEPLOY_ARGS=""
 ARG CONTRACT_DEPLOY_VALUE="0"
 ARG PLAYER_VALUE="10"
 
-ENV PORT=${PORT}
-ENV PUBLIC_IP=${HTTP_HOST}
-ENV HTTP_PORT=${HTTP_PORT}
-ENV FLAG=${FLAG}
-ENV CONTRACT_PATH="/home/ctf/compiled/Setup.sol/Setup.json"
-ENV CONTRACT_DEPLOY_ARGS=${CONTRACT_DEPLOY_ARGS}
-ENV CONTRACT_DEPLOY_VALUE=${CONTRACT_DEPLOY_VALUE}
-ENV PLAYER_VALUE=${PLAYER_VALUE}
+ENV PORT ${PORT}
+ENV PUBLIC_IP ${HTTP_HOST}
+ENV HTTP_PORT ${HTTP_PORT}
+ENV FLAG ${FLAG}
+ENV CONTRACT_PATH "/home/ctf/compiled/Setup.sol/Setup.json"
+ENV CONTRACT_DEPLOY_ARGS ${CONTRACT_DEPLOY_ARGS}
+ENV CONTRACT_DEPLOY_VALUE ${CONTRACT_DEPLOY_VALUE}
+ENV PLAYER_VALUE ${PLAYER_VALUE}

@@ -1,6 +1,6 @@
 from . import *
 from .util import getenv_or_raise
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_file
 import os
 import uuid
 
@@ -32,7 +32,7 @@ def name():
 
 @app.route('/download')
 def download_contracts():
-    return send_file("./blockchain-workshop-smart-contracts.zip", as_attachment=True)
+    return send_file("/blockchain-workshop-contracts.zip", as_attachment=True)
 
 @app.route('/check_flag', methods=['POST'])
 def check_flag():
