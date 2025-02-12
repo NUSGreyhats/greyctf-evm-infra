@@ -34,6 +34,10 @@ def name():
 def download_contracts():
     return send_file("/blockchain-workshop-contracts.zip", as_attachment=True)
 
+@app.route('/slides')
+def slides_redirect():
+    return redirect("https://docs.google.com/presentation/d/1hGp1nv8nF-LQh6typU4JEQQeOk9WOucR7BV3P7xN62c", code=302)
+
 @app.route('/check_flag', methods=['POST'])
 def check_flag():
     challenge_id = int(request.form['challenge_id'])
