@@ -1,6 +1,6 @@
 from . import *
 from .util import getenv_or_raise
-from flask import Flask, render_template, request, jsonify, send_file
+from flask import Flask, render_template, request, jsonify, send_file, redirect
 import os
 import uuid
 
@@ -66,4 +66,4 @@ def flag():
     return jsonify({'result': result})
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=os.getenv("PORT", 5000), debug=True)
+    app.run(host="0.0.0.0", port=os.getenv("PORT", 5000), debug=False)
