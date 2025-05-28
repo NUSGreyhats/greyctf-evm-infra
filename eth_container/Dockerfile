@@ -1,5 +1,5 @@
 # Use a more specific version of Python, to reduce the chances of unexpected behavior
-FROM python:3.9.16
+FROM python:3.10.12
 
 # Install the necessary dependencies
 RUN true \
